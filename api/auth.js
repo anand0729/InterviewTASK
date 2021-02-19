@@ -41,26 +41,34 @@ class authAPIs {
   }
 
   checkPassword(userDetails, password) {
-    if (bcrypt.compareSync(password, userDetails.password)) {
-      delete userDetails.password;
-      const token = jwt.sign(
-        {
-          userDetails,
-        },
-        process.env.TokenSecret,
-        { expiresIn: "1h" }
-      );
-      var response = {
-        status: 200,
-        token: token,
-      };
-      return Promise.resolve(response);
-    } else {
-      var response = {
+    try {
+      if (bcrypt.compareSync(password, userDetails.password)) {
+        delete userDetails.password;
+        const token = jwt.sign(
+          {
+            userDetails,
+          },
+          process.env.TokenSecret,
+          { expiresIn: "1h" }
+        );
+        var response = {
+          status: 200,
+          token: token,
+        };
+        return Promise.resolve(response);
+      } else {
+        var response = {
+          status: 401,
+          msg: "Invalid Credentials",
+        };
+        return Promise.resolve(response);
+      }
+    } catch (error) {
+      let response = {
         status: 401,
-        msg: "Invalid Credentials",
+        error: "CHECK TOKEN SECRECT IN .env",
       };
-      return Promise.resolve(response);
+      return Promise.reject(response);
     }
   }
 
@@ -120,7 +128,8 @@ class authAPIs {
   }
 
   tokenRegenerate(dataCame) {
-    try {
+    try {     
+
       let userInfo = jwt.verify(
         dataCame.authorization.split(" ")[1],
         process.env.TokenSecret,
@@ -132,13 +141,7 @@ class authAPIs {
           id: userInfo.userDetails.id,
           status: "a",
         },
-        attributes: [
-          "id",
-          "name",
-          "mobile",
-          "email",
-          "status",
-        ],
+        attributes: ["id", "name", "mobile", "email", "status"],
       }).then((userDetails) => {
         if (userDetails != null) {
           const token = jwt.sign({ userDetails }, process.env.TokenSecret, {
@@ -151,10 +154,10 @@ class authAPIs {
         } else {
           var response = {
             status: 401,
-            msg: "Invalid User !",
+            msg: "ERROR OCCURED!",
           };
         }
-        
+
         return Promise.resolve(response);
       });
     } catch (error) {
