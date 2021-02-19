@@ -160,7 +160,7 @@ class authAPIs {
     } catch (error) {
       let response = {
         status: 401,
-        error: error,
+        error: "CHECK TOKEN SECRECT IN .env",
       };
       return Promise.reject(response);
     }

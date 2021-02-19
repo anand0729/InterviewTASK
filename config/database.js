@@ -5,13 +5,13 @@ let username = process.env.devDbUsername;
 let password = process.env.devDbPassword;  
 
 const db = {};
-const sequelize = new Sequelize(database, username, password, { 
-  host: host,
-  dialect: 'mysql',
-  logging: false
-});
-
-db.sequelize = sequelize;
-db.Sequelize = Sequelize; 
+ 
+  const sequelize = new Sequelize(database, username, password, { 
+    host: host,
+    dialect: 'mysql',
+    logging: false
+  });
+  db.sequelize = sequelize;
+  db.Sequelize = Sequelize; 
 
 module.exports = db;
