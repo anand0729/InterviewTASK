@@ -1,15 +1,15 @@
 # InterviewTASK
-InterviewTASK - Node API
+InterviewTASK - Node API <br />
 
-##STEPS TO RUN APPLICATION
-RUN Command 'npm install'
-RENAME .env.dummy to .env and fill all the required details 
-RUN Command 'npm start'
+##STEPS TO RUN APPLICATION <br />
+RUN Command 'npm install' <br />
+RENAME .env.dummy to .env and fill all the required details  <br />
+RUN Command 'npm start' <br />
 
 ##API's
-/api/auth/register
-/api/auth/login
-/api/auth/tokenRegenerate
+/api/auth/register <br />
+/api/auth/login <br />
+/api/auth/tokenRegenerate <br />
 
 
 
